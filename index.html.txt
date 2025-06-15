@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Glow & Go Lisbon - Home Beauty Services</title>
+<link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+
+<header>
+  <h1>Glow & Go Lisbon</h1>
+  <p>Your Home-Based Beauty Services in Lisbon</p>
+</header>
+
+<nav>
+  <button onclick="setLanguage('en')">English</button>
+  <button onclick="setLanguage('pt')">Português</button>
+</nav>
+
+<div class="container">
+
+  <section id="services-en">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Body Wax <span class="price">€15</span></li>
+      <li>Body Massage <span class="price">€25</span></li>
+      <li>Body Facial <span class="price">€20</span></li>
+      <li>Manicure & Pedicure <span class="price">€18</span></li>
+      <li>Plucking <span class="price">€10</span></li>
+    </ul>
+    <a class="whatsapp" href="https://wa.me/351920253376" target="_blank" rel="noopener noreferrer">Book on WhatsApp</a>
+  </section>
+
+  <section id="services-pt" style="display:none;">
+    <h2>Nossos Serviços</h2>
+    <ul>
+      <li>Depilação Corporal <span class="price">€15</span></li>
+      <li>Massagem Corporal <span class="price">€25</span></li>
+      <li>Tratamento Facial Corporal <span class="price">€20</span></li>
+      <li>Manicure & Pedicure <span class="price">€18</span></li>
+      <li>Depilação com Pinça <span class="price">€10</span></li>
+    </ul>
+    <a class="whatsapp" href="https://wa.me/351920253376" target="_blank" rel="noopener noreferrer">Agende pelo WhatsApp</a>
+  </section>
+
+</div>
+
+<footer>
+  <p>Contact us: glowgolisbon@gmail.com | WhatsApp: +351 920 253 376</p>
+  <p>&copy; 2025 Glow & Go Lisbon</p>
+</footer>
+
+<script>
+  function setLanguage(lang) {
+    if(lang === 'en') {
+      document.getElementById('services-en').style.display = 'block';
+      document.getElementById('services-pt').style.display = 'none';
+    } else {
+      document.getElementById('services-en').style.display = 'none';
+      document.getElementById('services-pt').style.display = 'block';
+    }
+  }
+  // Default language English
+  setLanguage('en');
+</script>
+
+</body>
+</html>
