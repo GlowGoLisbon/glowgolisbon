@@ -1,70 +1,180 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Glow & Go Lisbon - Home Beauty Services</title>
-<link rel="stylesheet" href="style.css" />
+// src/main.jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
 
-</head>
-<body>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
-<header>
-  <h1>Glow & Go Lisbon</h1>
-  <p>Your Home-Based Beauty Services in Lisbon</p>
-</header>
 
-<nav>
-  <button onclick="setLanguage('en')">English</button>
-  <button onclick="setLanguage('pt')">Português</button>
-</nav>
+// src/App.jsx
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Services from "./pages/Services";
+import Book from "./pages/Book";
+import Contact from "./pages/Contact";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import './i18n';
 
-<div class="container">
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/book" element={<Book />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+      <Footer />
+    </Router>
+  );
+}
 
-  <section id="services-en">
-    <h2>Our Services</h2>
-    <ul>
-      <li>Body Wax <span class="price">€15</span></li>
-      <li>Body Massage <span class="price">€25</span></li>
-      <li>Body Facial <span class="price">€20</span></li>
-      <li>Manicure & Pedicure <span class="price">€18</span></li>
-      <li>Plucking <span class="price">€10</span></li>
-    </ul>
-    <a class="whatsapp" href="https://wa.me/351920253376" target="_blank" rel="noopener noreferrer">Book on WhatsApp</a>
-  </section>
+export default App;
 
-  <section id="services-pt" style="display:none;">
-    <h2>Nossos Serviços</h2>
-    <ul>
-      <li>Depilação Corporal <span class="price">€15</span></li>
-      <li>Massagem Corporal <span class="price">€25</span></li>
-      <li>Tratamento Facial Corporal <span class="price">€20</span></li>
-      <li>Manicure & Pedicure <span class="price">€18</span></li>
-      <li>Depilação com Pinça <span class="price">€10</span></li>
-    </ul>
-    <a class="whatsapp" href="https://wa.me/351920253376" target="_blank" rel="noopener noreferrer">Agende pelo WhatsApp</a>
-  </section>
 
-</div>
+// src/components/Navbar.jsx
+import React from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
-<footer>
-  <p>Contact us: glowgolisbon@gmail.com | WhatsApp: +351 920 253 376</p>
-  <p>&copy; 2025 Glow & Go Lisbon</p>
-</footer>
+function Navbar() {
+  const { t, i18n } = useTranslation();
 
-<script>
-  function setLanguage(lang) {
-    if(lang === 'en') {
-      document.getElementById('services-en').style.display = 'block';
-      document.getElementById('services-pt').style.display = 'none';
-    } else {
-      document.getElementById('services-en').style.display = 'none';
-      document.getElementById('services-pt').style.display = 'block';
-    }
-  }
-  // Default language English
-  setLanguage('en');
-</script>
+  return (
+    <nav className="p-4 shadow flex justify-between items-center">
+      <h1 className="text-xl font-bold">Nude & Glow</h1>
+      <div className="space-x-4">
+        <Link to="/">{t('home')}</Link>
+        <Link to="/services">{t('services')}</Link>
+        <Link to="/book">{t('book')}</Link>
+        <Link to="/contact">{t('contact')}</Link>
+        <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+        <button onClick={() => i18n.changeLanguage('pt')}>PT</button>
+      </div>
+    </nav>
+  );
+}
 
-</body>
-</html>
+export default Navbar;
+
+
+// src/i18n.js
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+const resources = {
+  en: {
+    translation: {
+      home: "Home",
+      services: "Services",
+      book: "Book Now",
+      contact: "Contact",
+    },
+  },
+  pt: {
+    translation: {
+      home: "Início",
+      services: "Serviços",
+      book: "Agendar",
+      contact: "Contato",
+    },
+  },
+};
+
+i18n.use(initReactI18next).init({
+  resources,
+  lng: 'en',
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
+export default i18n;
+
+
+// src/pages/Home.jsx
+import React from "react";
+
+function Home() {
+  return (
+    <section className="p-10 text-center">
+      <h2 className="text-3xl font-semibold">Welcome to Nude & Glow</h2>
+      <p className="mt-4">Beauty services at your doorstep. Book now!</p>
+    </section>
+  );
+}
+
+export default Home;
+
+
+// src/pages/Services.jsx
+import React from "react";
+
+function Services() {
+  return (
+    <section className="p-10">
+      <h2 className="text-2xl font-semibold mb-4">Our Services</h2>
+      <ul className="space-y-2">
+        <li>Facial</li>
+        <li>Waxing</li>
+        <li>Manicure & Pedicure</li>
+        <li>Hair Styling</li>
+      </ul>
+    </section>
+  );
+}
+
+export default Services;
+
+
+// src/pages/Book.jsx
+import React from "react";
+
+function Book() {
+  return (
+    <section className="p-10">
+      <h2 className="text-2xl font-semibold">Book a Service</h2>
+      <p className="mt-2">Booking functionality coming soon.</p>
+    </section>
+  );
+}
+
+export default Book;
+
+
+// src/pages/Contact.jsx
+import React from "react";
+
+function Contact() {
+  return (
+    <section className="p-10">
+      <h2 className="text-2xl font-semibold">Contact Us</h2>
+      <p className="mt-2">Email: contact@nudeandglow.com</p>
+    </section>
+  );
+}
+
+export default Contact;
+
+
+// src/components/Footer.jsx
+import React from "react";
+
+function Footer() {
+  return (
+    <footer className="text-center p-4 border-t mt-10">
+      <p>&copy; 2025 Nude & Glow. All rights reserved.</p>
+    </footer>
+  );
+}
+
+export default Footer;
